@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>「진짜 행운」 학습지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffaf0;
+    --ink: #2a2a2a;
+    --red: #e74c3c;
+    --blue: #3498db;
+    --green: #43a047;
+    --orange: #ff8c42;
+    --purple: #b56cff;
+    --pink: #e91e63;
+    --teal: #0288d1;
+    --yellow: #ffc107;
+    --cream: #fff8e1;
+    --soft-gray: #f5f1e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 200, 100, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(100, 150, 255, 0.06) 0%, transparent 40%);
+    font-family: 'Gowun Dodum', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 20px 18px 60px; }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0 14px; border-bottom: 2px dashed #d4c8a8; margin-bottom: 18px;
+  }
+  .badge {
+    font-family: 'Gaegu', cursive; font-weight: 700; font-size: 16px;
+    background: var(--ink); color: var(--paper);
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .progress-text { font-family: 'Gaegu', cursive; font-size: 16px; color: #888; }
+  .screen { display: none; animation: fadeIn 0.4s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  h1 {
+    font-family: 'Nanum Pen Script', cursive; font-size: 44px; color: var(--ink);
+    margin: 14px 0 6px; line-height: 1.2; text-align: center;
+  }
+  h1 .accent {
+    color: var(--red);
+    background: linear-gradient(transparent 60%, #ffe082 60%);
+    padding: 0 4px;
+  }
+  h2 { font-family: 'Nanum Pen Script', cursive; font-size: 32px; margin: 14px 0 10px; }
+  .subtitle { text-align: center; font-family: 'Gaegu', cursive; font-size: 18px; color: #666; margin: 0 0 22px; }
+  .card {
+    background: #fff; border: 3px solid var(--ink); border-radius: 14px;
+    padding: 22px 20px; margin-bottom: 18px;
+    box-shadow: 4px 4px 0 var(--ink); position: relative;
+  }
+  .card.tilt-left { transform: rotate(-0.3deg); }
+  .card.tilt-right { transform: rotate(0.3deg); }
+  .card-tag {
+    position: absolute; top: -12px; left: 16px;
+    background: var(--red); color: #fff; padding: 3px 12px; border-radius: 14px;
+    font-family: 'Gaegu', cursive; font-weight: 700; font-size: 14px;
+  }
+  .summary-section {
+    background: var(--cream); border: 2px dashed #f9a825;
+    border-radius: 12px; padding: 16px 18px; margin: 14px 0;
+  }
+  .summary-section h3 { font-family: 'Gaegu', cursive; font-size: 22px; margin: 0 0 8px; color: var(--red); }
+  .summary-section p { margin: 6px 0; font-size: 15px; line-height: 1.7; }
+  .key-quote {
+    background: #fff; border-left: 4px solid var(--red);
+    padding: 10px 14px; margin: 10px 0;
+    font-family: 'Gaegu', cursive; font-size: 18px; color: #333; border-radius: 4px;
+  }
+  .activity-menu {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 12px; margin: 16px 0;
+  }
+  .activity-card {
+    background: #fff; border: 3px solid var(--ink);
+    border-radius: 12px; padding: 16px 14px; cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-align: center; font-family: 'Gowun Dodum', sans-serif;
+  }
+  .activity-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+  .activity-card .num {
+    display: inline-block; width: 32px; height: 32px; line-height: 30px;
+    border-radius: 50%; background: var(--ink); color: #fff;
+    font-family: 'Gaegu', cursive; font-weight: 700; margin-bottom: 6px;
+  }
+  .activity-card .icon { font-size: 36px; line-height: 1; margin: 4px 0; }
+  .activity-card .title { font-family: 'Gaegu', cursive; font-weight: 700; font-size: 16px; margin: 4px 0 2px; }
+  .activity-card .check { font-size: 14px; color: #aaa; }
+  .activity-card.done .check { color: var(--green); font-weight: 700; }
+  .stage-icon { text-align: center; font-size: 64px; margin: 8px 0; }
+  .activity-tag {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .think-box {
+    background: var(--cream); border: 2px dashed #f9a825;
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 16px;
+  }
+  .think-box h3 { font-family: 'Gaegu', cursive; font-size: 20px; margin: 0 0 8px; color: var(--red); }
+  .think-box p { margin: 0; font-size: 14px; }
+  .write-box {
+    background: #fff; border: 3px solid var(--ink); border-radius: 14px;
+    padding: 18px; margin-bottom: 16px; box-shadow: 4px 4px 0 var(--ink);
+  }
+  .write-box h3 { font-family: 'Gaegu', cursive; font-size: 22px; margin: 0 0 8px; }
+  .question-text {
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 16px; font-weight: 600;
+    line-height: 1.6;
+    margin: 8px 0 12px;
+  }
+  .q-num {
+    display: inline-block;
+    background: var(--blue); color: #fff;
+    font-family: 'Gaegu', cursive; font-weight: 700;
+    padding: 2px 12px; border-radius: 12px; font-size: 14px;
+    margin-right: 6px;
+  }
+  textarea {
+    width: 100%; min-height: 100px; padding: 14px;
+    border: 2px solid #d4c8a8; border-radius: 10px;
+    font-family: 'Gowun Dodum', sans-serif; font-size: 15px;
+    line-height: 1.6; resize: vertical; background: #fdfaf3;
+  }
+  textarea.tall { min-height: 150px; }
+  textarea.short { min-height: 70px; }
+  textarea:focus { outline: none; border-color: var(--red); background: #fff; }
+  input[type="text"] {
+    width: 100%; padding: 12px 14px;
+    border: 2px solid #d4c8a8; border-radius: 10px;
+    font-family: 'Gowun Dodum', sans-serif; font-size: 15px;
+    background: #fdfaf3;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--red); background: #fff; }
+
+  /* Timeline (시간 흐름) */
+  .timeline-box {
+    background: #fff8e1;
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .timeline-step {
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .timeline-step.given {
+    background: #ffe9c4;
+    border-style: solid;
+  }
+  .timeline-step .step-label {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    color: var(--orange);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .timeline-step.given .step-label::after {
+    content: ' (예시)';
+    color: #999;
+    font-weight: 400;
+  }
+  .timeline-arrow {
+    text-align: center;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+    margin: 4px 0;
+  }
+  .given-text {
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 15px;
+    color: #333;
+  }
+
+  /* Question maker (질문 만들기) */
+  .q-maker {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .q-maker .purpose {
+    display: inline-block;
+    background: var(--pink);
+    color: #fff;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 14px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .q-maker .purpose-desc {
+    font-family: 'Gowun Dodum', sans-serif;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  .q-maker .example {
+    background: var(--soft-gray);
+    border-left: 4px solid var(--blue);
+    padding: 12px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .q-maker .example-label {
+    color: var(--blue); font-weight: 700; margin-right: 6px; font-family: 'Gaegu', cursive; font-size: 16px;
+  }
+  .q-maker label {
+    display: block;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 14px 0 6px;
+    color: #444;
+  }
+  .who-input { max-width: 240px; font-size: 16px !important; }
+
+  /* Wish table */
+  .wish-table {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  @media (min-width: 600px) {
+    .wish-table { grid-template-columns: 1fr 1fr; }
+  }
+  .wish-cell {
+    background: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .wish-cell .header {
+    background: #c5cae9;
+    margin: -14px -14px 10px -14px;
+    padding: 8px 14px;
+    border-radius: 9px 9px 0 0;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 17px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .friend-quotes {
+    margin-top: 14px;
+    background: var(--soft-gray);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .friend-quote {
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 12px 12px 12px 4px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-family: 'Gaegu', cursive;
+    font-size: 14px;
+    position: relative;
+  }
+  .friend-quote .who {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .btn {
+    font-family: 'Gaegu', cursive; font-weight: 700; font-size: 17px;
+    padding: 11px 20px; border: 3px solid var(--ink); border-radius: 12px;
+    cursor: pointer; box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s;
+    background: #fff; color: var(--ink);
+  }
+  .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn.primary { background: var(--red); color: #fff; }
+  .nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
+  .nav .btn { flex: 1; }
+  .sample-toggle { width: 100%; margin-top: 8px; }
+  .sample-box {
+    background: #f0f8ff; border: 2px solid var(--blue); border-radius: 10px;
+    padding: 14px; margin-top: 10px; display: none;
+  }
+  .sample-box.show { display: block; animation: fadeIn 0.3s; }
+  .sample-box .label { font-family: 'Gaegu', cursive; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+  .sample-box .note { font-family: 'Gaegu', cursive; font-size: 13px; color: #666; margin-top: 8px; }
+
+  /* Submit page */
+  .answer-card {
+    background: #fff; border: 2px solid var(--ink); border-radius: 10px;
+    padding: 14px; margin-bottom: 12px;
+  }
+  .answer-card .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+  .answer-card .letter-label { font-family: 'Gaegu', cursive; font-weight: 700; font-size: 17px; }
+  .answer-card .edit-btn { background: none; padding: 4px 12px; font-size: 13px; box-shadow: 1px 1px 0 var(--ink); }
+  .answer-card .content { font-size: 14px; line-height: 1.7; white-space: pre-wrap; min-height: 24px; }
+  .answer-card .empty { color: #bbb; font-style: italic; }
+  .answer-card .sub-label { font-family: 'Gaegu', cursive; font-weight: 700; color: #666; margin-top: 8px; font-size: 13px; }
+
+  .submit-cta {
+    background: #fffce6; border: 3px dashed var(--red); border-radius: 14px;
+    padding: 24px; text-align: center; margin: 18px 0;
+  }
+  .submit-cta h2 { margin-top: 0; }
+  .submit-cta .big-btn { font-size: 22px; padding: 14px 28px; background: var(--red); color: #fff; margin: 12px 0; }
+  .done-page { text-align: center; padding: 30px 20px; }
+  .done-page .big-emoji { font-size: 100px; margin: 20px 0; }
+  .done-page h1 { font-size: 50px; }
+  .done-page p { font-family: 'Gaegu', cursive; font-size: 22px; line-height: 1.7; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="topbar">
+    <span class="badge">📚 「진짜 행운」 학습지</span>
+    <span class="progress-text" id="progress-text">시작!</span>
+  </div>
+
+  <!-- ==================== 메뉴 ==================== -->
+  <section class="screen active" id="screen-menu">
+    <h1><span class="accent">진짜 행운</span></h1>
+    <p class="subtitle">글: 김성운 · 그림: 김성라 · 5학년 국어</p>
+
+    <div class="card tilt-left">
+      <span class="card-tag">📖 작품 요약</span>
+      <h2 style="text-align:center;">간단히 다시 떠올려보자!</h2>
+
+      <div class="summary-section">
+        <h3>🌊 만남</h3>
+        <p>한적한 바닷가 마을에 사는 5학년 <strong>장하늘</strong>이네 집 2층에, 이라크인 <strong>마람 언니</strong>가 한 달만 머물겠다며 찾아와. 마람은 자신이 <strong>램프의 요정</strong>이며 하늘이의 소원 하나를 들어주겠다고 해!</p>
+      </div>
+
+      <div class="summary-section">
+        <h3>💭 망설임과 깨달음</h3>
+        <p>하늘이는 "하늘 나는 양탄자" 소원을 떠올렸다가 포기해. 평생 한 번뿐인 기회라 쉽게 정할 수가 없어. 엄마와 바닷가를 거닐다가 엄마의 옛 소원이 <strong>"하늘이 다리랑 엄마 다리랑 바꿔달라"</strong>였다는 걸 듣고 가슴이 찌르르해.</p>
+      </div>
+
+      <div class="summary-section">
+        <h3>💎 진짜 깨달음</h3>
+        <p>하늘이가 마람 언니에게 말해.</p>
+        <div class="key-quote">"이게 나잖아요. 나는 나보다 다른 사람이 더 좋다고 생각한 적 한 번도 없거든요."</div>
+        <p>마람 언니는 멍해졌다가 사과해 — <strong>"변해야 하는 건 하늘이 아닌데. 바로 이 세상인데…."</strong> 그리고 "<strong>램프의 요정은 자기 자신을 사랑하는 사람을 찾아간다</strong>"고 알려줘.</p>
+      </div>
+
+      <div class="summary-section">
+        <h3>❄️ 진짜 행운</h3>
+        <p>마람이 떠난 며칠 뒤, 집에 <strong>전동 휠체어가 택배로 도착</strong>해. 엄마가 몇 달 전 신청한 장애인 후원에 당첨된 거야. 첫눈 내리는 날 — <strong>"그리고 오늘, 정말로 내 소원이 이루어졌다."</strong></p>
+      </div>
+    </div>
+
+    <div class="card tilt-right">
+      <span class="card-tag" style="background: var(--blue);">📝 오늘의 활동</span>
+      <h2 style="text-align:center;">아래 활동을 차례로 해보자!</h2>
+      <div class="activity-menu" id="activity-menu"></div>
+      <p style="text-align:center; font-family:'Gaegu',cursive; color:#666; margin-top:14px;">
+        💡 <strong>모두 끝낸 후 선생님께 한꺼번에 제출</strong>할 수 있어!<br>
+        ⚠️ 새로고침하거나 창을 닫으면 답이 사라지니까 한 번에 다 작성해줘.
+      </p>
+    </div>
+
+    <div class="nav">
+      <button class="btn" onclick="resetAll()" style="background:#ffe0e0;">🔄 다시 시작 (답 모두 지우기)</button>
+      <button class="btn primary" onclick="goToActivity(0)">🚀 시작하기 →</button>
+    </div>
+  </section>
+
+  <!-- ==================== 활동 ==================== -->
+  <section class="screen" id="screen-activity">
+    <div id="activity-content"></div>
+  </section>
+
+  <!-- ==================== 제출 ==================== -->
+  <section class="screen" id="screen-submit">
+    <div id="submit-content"></div>
+  </section>
+
+  <!-- ==================== 완료 ==================== -->
+  <section class="screen" id="screen-done">
+    <div class="done-page">
+      <div class="big-emoji">🎉</div>
+      <h1><span class="accent">제출 완료!</span></h1>
+      <p>「진짜 행운」을 깊이 있게 감상해줘서 고마워!<br>
+      너의 멋진 생각을 선생님이 꼭 읽어보실 거야. 👏</p>
+      <div style="margin-top:30px;">
+        <button class="btn" onclick="goToMenu()">🔄 처음 화면으로</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ⚠️ 구글 폼 주소 */
+const GOOGLE_FORM_URL = "https://forms.gle/twVB8Mr1bNUwkFik7";
+
+/* ============ DATA: 활동 1 - 내용 알기 ============ */
+const CONTENT_QUESTIONS = [
+  {
+    q: "하늘이가 처음에 생각한 소원 두 가지는 무엇인가요?",
+    sample: "🔑 핵심 키워드: <strong>단짝 친구</strong>, <strong>하늘을 나는 양탄자</strong>",
+    rows: 2
+  },
+  {
+    q: "하늘이가 오랫동안 고민한 뒤 빈 소원은 무엇인가요?",
+    sample: "🔑 핵심 키워드: <strong>전동 휠체어</strong>",
+    rows: 2
+  },
+  {
+    q: "마람 언니가 하늘이의 소원을 듣고 미안하다고 말한 까닭은 무엇일까요?",
+    sample: "🔑 핵심 키워드: <strong>변해야 할 것</strong>, <strong>하늘이가 아닌</strong>, <strong>이 세상</strong>, <strong>깨달음</strong>",
+    rows: 3
+  },
+  {
+    q: "하늘이가 진짜 소원 대신 두 번째 소원을 빈 까닭을 보면 하늘이는 어떤 성격이라고 할 수 있을까요?",
+    sample: "🔑 생각 거리: 마람 언니가 <strong>실패한 요정</strong>이 되지 않도록 더 쉬운 소원을 골라 빌었어요. 또 자기 자신을 그대로 받아들이는 마음도 있어요. 어떤 성격일지 떠올려봐요! (예: 배려심, 따뜻함, 자존감 등)",
+    rows: 3
+  }
+];
+
+/* ============ DATA: 활동 2 - 시간 흐름 간추리기 ============ */
+const TIMELINE = [
+  {
+    given: true,
+    text: "램프의 요정 마람 언니가 하늘이 집에 나타나 소원 하나를 들어주겠다고 제안한다."
+  },
+  {
+    given: false,
+    hint: "하늘이가 한 달 동안 어떻게 했는지 써봐요.",
+    sample: "🔑 핵심 키워드: <strong>한 달 동안</strong>, <strong>여러 가지 소원</strong>, <strong>고민</strong>"
+  },
+  {
+    given: false,
+    hint: "마람 언니가 떠나기 전날 밤, 하늘이는 어떤 소원을 말했는지 써봐요.",
+    sample: "🔑 핵심 키워드: <strong>떠나기 전날 밤</strong>, <strong>소원</strong>, <strong>전동 휠체어</strong>"
+  },
+  {
+    given: false,
+    hint: "다음 날 마람 언니는 어떻게 떠났는지 써봐요.",
+    sample: "🔑 핵심 키워드: <strong>다음 날</strong>, <strong>하늘이와 엄마의 배웅</strong>, <strong>마을버스</strong>, <strong>떠나다</strong>"
+  },
+  {
+    given: false,
+    hint: "며칠 뒤 하늘이네 집에 어떤 일이 일어났는지 써봐요.",
+    sample: "🔑 핵심 키워드: <strong>며칠 뒤</strong>, <strong>전동 휠체어</strong>, <strong>택배</strong>, <strong>도착</strong>"
+  }
+];
+
+/* ============ DATA: 활동 3 - 인물에게 질문 ============ */
+const QUESTION_TYPES = [
+  {
+    purpose: "의도를 파악하기 위한 질문",
+    desc: "인물의 행동이나 말의 의도가 무엇인지 알아보는 질문",
+    color: "var(--pink)",
+    fixedWho: "엄마",
+    fixedQuestion: "마람 언니가 떠날 때 음식을 건넨 까닭은 무엇인가요?",
+    placeholder: "예) 하늘이 모르게 장애인 후원을 신청한 까닭은 무엇인가요?",
+    sample: "(누구에게: 엄마)\n장애인 후원 신청을 한 까닭은 무엇인가요? 하늘이 모르게 준비하신 마음이 궁금해요."
+  },
+  {
+    purpose: "명료하게 이해하기 위한 질문",
+    desc: "이해가 안 되는 말이나 행동을 자세히 알고 싶을 때 만드는 질문",
+    color: "var(--purple)",
+    fixedWho: "하늘",
+    fixedQuestion: "\"어떤 소원은 이루어지지 않는 게 좋다.\"는 말의 뜻을 자세히 설명해 줄 수 있나요?",
+    placeholder: "예) \"이게 나잖아요\"라는 말이 어떤 의미인지 자세히 알려줄 수 있나요?",
+    sample: "(누구에게: 하늘)\n\"이게 나잖아요\"라고 말한 진짜 의미가 무엇인가요? 그 말을 한 순간 어떤 마음이었는지 자세히 설명해줄 수 있나요?"
+  },
+  {
+    purpose: "대안이나 정보를 찾기 위한 질문",
+    desc: "더 알고 싶은 정보나 다른 방법을 찾기 위한 질문",
+    color: "var(--teal)",
+    fixedWho: "마람 언니",
+    fixedQuestion: "램프의 요정은 자기 자신을 사랑하는 사람을 찾아간다고 말했는데요, 자신을 사랑하는 사람을 어떻게 알아볼 수 있나요?",
+    placeholder: "예) 다른 램프의 요정들도 한국에 있나요?",
+    sample: "(누구에게: 마람 언니)\n자기 자신을 사랑하는 사람이 되려면 어떻게 해야 하나요? 그런 사람이 되기 위한 방법을 알려주실 수 있나요?"
+  }
+];
+
+/* ============ DATA: 활동 4 - 나의 소원 ============ */
+const MY_WISH = {
+  prompt: "내가 진짜로 이루고 싶은 소원과 그 까닭을 써보자.",
+  hint: "친구들과도 함께 이야기 나눠 봐요. 친구들의 소원을 들으면 더 다양한 생각이 떠올라요!",
+  friendExamples: [
+    { who: "친구 1", text: "내 소원은 할아버지께서 건강하게 오래 사시는 거야. 할아버지께서 항상 나를 챙겨 주시거든." },
+    { who: "친구 2", text: "내 소원은 어른이 되면 다른 나라에 가 보는 거야. 맛있는 음식도 많이 먹고 좋은 풍경도 직접 보고 싶거든." }
+  ],
+  sample: {
+    wish: "우리 가족이 모두 건강하게 오래오래 함께 사는 것",
+    reason: "작년에 할머니가 많이 아프셔서 가족이 다 같이 걱정한 적이 있어요. 그때 가족이 함께 있는 것이 얼마나 소중한지 깨달았어요. 가족이 모두 건강해야 매일이 행복할 수 있으니까요."
+  }
+};
+
+/* ============ ACTIVITIES MENU ============ */
+const ACTIVITIES = [
+  { num: 1, icon: "📚", title: "내용 알기", check: () => contentCompleted() },
+  { num: 2, icon: "⏰", title: "시간 흐름 간추리기", check: () => timelineCompleted() },
+  { num: 3, icon: "❓", title: "인물에게 질문 만들기", check: () => questionCompleted() },
+  { num: 4, icon: "🌟", title: "나의 소원과 까닭", check: () => wishCompleted() }
+];
+
+/* ============ STATE ============ */
+const state = {
+  contentAnswers: CONTENT_QUESTIONS.map(() => ''),
+  timelineAnswers: TIMELINE.map(t => t.given ? t.text : ''),
+  questionAnswers: QUESTION_TYPES.map(() => ({ who: '', q: '' })),
+  myWish: '',
+  myWishReason: '',
+  sampleShown: {
+    content: [false, false, false, false],
+    timeline: [false, false, false, false, false],
+    question: [false, false, false],
+    myWish: false
+  }
+};
+
+// 자동 저장 비활성화 — 학생마다 새로 시작하도록
+function save() {
+  // 저장하지 않음 (학생들이 매번 새로 시작)
+}
+function load() {
+  // 불러오지 않음
+}
+
+// 처음 사용 시 혹시 남아있을 옛 저장 데이터 삭제
+try { localStorage.removeItem('luck-textbook-v1'); } catch(e) {}
+try { localStorage.removeItem('luck-workbook-v2'); } catch(e) {}
+try { localStorage.removeItem('luck-super-answers'); } catch(e) {}
+
+// 다시 시작 (모든 답 지우기)
+function resetAll() {
+  if (!confirm('정말 모든 답을 지우고 처음부터 다시 시작할까요?')) return;
+  state.contentAnswers = CONTENT_QUESTIONS.map(() => '');
+  state.timelineAnswers = TIMELINE.map(t => t.given ? t.text : '');
+  state.questionAnswers = QUESTION_TYPES.map(() => ({ who: '', q: '' }));
+  state.myWish = '';
+  state.myWishReason = '';
+  state.sampleShown = {
+    content: [false, false, false, false],
+    timeline: [false, false, false, false, false],
+    question: [false, false, false],
+    myWish: false
+  };
+  goToMenu();
+}
+
+function contentCompleted() { return state.contentAnswers.every(a => a && a.trim().length > 0); }
+function timelineCompleted() {
+  return state.timelineAnswers.every((a, i) => TIMELINE[i].given || (a && a.trim().length > 0));
+}
+function questionCompleted() {
+  return state.questionAnswers.some(a => a.q && a.q.trim().length > 0);
+}
+function wishCompleted() {
+  return state.myWish.trim().length > 0 && state.myWishReason.trim().length > 0;
+}
+
+/* ============ NAVIGATION ============ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goToMenu() {
+  renderMenu();
+  document.getElementById('progress-text').textContent = '시작!';
+  showScreen('screen-menu');
+}
+function goToActivity(idx) {
+  renderActivity(idx);
+  document.getElementById('progress-text').textContent = `활동 ${idx + 1} / 4`;
+  showScreen('screen-activity');
+}
+function goToSubmit() {
+  renderSubmit();
+  document.getElementById('progress-text').textContent = '제출';
+  showScreen('screen-submit');
+}
+function goToDone() {
+  document.getElementById('progress-text').textContent = '완료!';
+  showScreen('screen-done');
+}
+
+/* ============ MENU ============ */
+function renderMenu() {
+  const menu = document.getElementById('activity-menu');
+  if (!menu) return;
+  menu.innerHTML = ACTIVITIES.map((a, i) => {
+    const done = a.check();
+    return `
+      <div class="activity-card ${done ? 'done' : ''}" onclick="goToActivity(${i})">
+        <div class="num">${a.num}</div>
+        <div class="icon">${a.icon}</div>
+        <div class="title">${a.title}</div>
+        <div class="check">${done ? '✓ 완료' : '미완료'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ============ ROUTER ============ */
+function renderActivity(idx) {
+  if (idx === 0) renderContentActivity();
+  else if (idx === 1) renderTimelineActivity();
+  else if (idx === 2) renderQuestionActivity();
+  else if (idx === 3) renderWishActivity();
+}
+
+/* ============ 활동 1: 내용 알기 ============ */
+function renderContentActivity() {
+  const container = document.getElementById('activity-content');
+  const html = `
+    <div style="text-align:center; padding:8px 0;">
+      <span class="activity-tag">📚 내용 알기</span>
+      <div class="stage-icon">📖</div>
+    </div>
+    <h1>활동 1 · 내용 알기</h1>
+    <p class="subtitle">「진짜 행운」을 읽고 물음에 답해 봅시다.</p>
+
+    ${CONTENT_QUESTIONS.map((q, i) => `
+      <div class="write-box">
+        <div class="question-text">
+          <span class="q-num">(${i + 1})</span>${q.q}
+        </div>
+        <textarea id="content-${i}" class="${q.rows >= 3 ? 'tall' : ''}" placeholder="여기에 답을 써봐...">${escapeHtml(state.contentAnswers[i] || '')}</textarea>
+        <button class="btn sample-toggle" onclick="toggleSample('content', ${i})">
+          ${state.sampleShown.content[i] ? '🔽 힌트 접기' : '🔑 핵심 키워드 힌트 보기'}
+        </button>
+        <div class="sample-box ${state.sampleShown.content[i] ? 'show' : ''}">
+          <div class="label">힌트 (이 키워드를 넣어 문장으로 만들어봐!)</div>
+          <div>${q.sample}</div>
+          <div class="note">※ 키워드를 활용해서 너의 말로 답을 써봐!</div>
+        </div>
+      </div>
+    `).join('')}
+
+    <div class="nav">
+      <button class="btn" onclick="goToMenu()">← 메뉴로</button>
+      <button class="btn primary" onclick="goToActivity(1)">다음 활동 →</button>
+    </div>
+  `;
+  container.innerHTML = html;
+
+  CONTENT_QUESTIONS.forEach((_, i) => {
+    const ta = document.getElementById(`content-${i}`);
+    if (ta) {
+      ta.addEventListener('input', (e) => {
+        state.contentAnswers[i] = e.target.value;
+        save();
+      });
+    }
+  });
+}
+
+/* ============ 활동 2: 시간 흐름 간추리기 ============ */
+function renderTimelineActivity() {
+  const container = document.getElementById('activity-content');
+  const html = `
+    <div style="text-align:center; padding:8px 0;">
+      <span class="activity-tag" style="background:var(--orange);">⏰ 글과 연결하기</span>
+      <div class="stage-icon">⏰</div>
+    </div>
+    <h1>활동 2 · 시간 흐름 간추리기</h1>
+    <p class="subtitle">「진짜 행운」의 내용을 시간의 흐름에 맞게 간추려 봅시다.</p>
+
+    <div class="think-box">
+      <h3 style="color:var(--orange);">💡 이렇게 해봐요</h3>
+      <p>첫 번째 칸은 <strong>예시</strong>로 채워져 있어요. 나머지 세 칸을 채워서 이야기를 시간 흐름에 따라 정리해봐요!</p>
+    </div>
+
+    <div class="timeline-box">
+      ${TIMELINE.map((t, i) => `
+        <div class="timeline-step ${t.given ? 'given' : ''}">
+          <div class="step-label">${i + 1}단계</div>
+          ${t.given
+            ? `<div class="given-text">${t.text}</div>`
+            : `
+              <textarea id="timeline-${i}" class="short" placeholder="${escapeAttr(t.hint || '여기에 짧게 써봐...')}">${escapeHtml(state.timelineAnswers[i] || '')}</textarea>
+              ${t.sample ? `
+                <button class="btn sample-toggle" onclick="toggleSample('timeline', ${i})" style="margin-top:8px;">
+                  ${state.sampleShown.timeline[i] ? '🔽 힌트 접기' : '🔑 핵심 키워드 힌트 보기'}
+                </button>
+                <div class="sample-box ${state.sampleShown.timeline[i] ? 'show' : ''}">
+                  <div class="label">힌트 (이 키워드를 넣어 문장으로 만들어봐!)</div>
+                  <div>${t.sample}</div>
+                </div>
+              ` : ''}
+            `}
+        </div>
+        ${i < TIMELINE.length - 1 ? '<div class="timeline-arrow">⬇</div>' : ''}
+      `).join('')}
+    </div>
+
+    <div class="nav">
+      <button class="btn" onclick="goToActivity(0)">← 이전</button>
+      <button class="btn primary" onclick="goToActivity(2)">다음 활동 →</button>
+    </div>
+  `;
+  container.innerHTML = html;
+
+  TIMELINE.forEach((t, i) => {
+    if (!t.given) {
+      const ta = document.getElementById(`timeline-${i}`);
+      if (ta) {
+        ta.addEventListener('input', (e) => {
+          state.timelineAnswers[i] = e.target.value;
+          save();
+        });
+      }
+    }
+  });
+}
+
+/* ============ 활동 3: 인물 질문 ============ */
+function renderQuestionActivity() {
+  const container = document.getElementById('activity-content');
+  const html = `
+    <div style="text-align:center; padding:8px 0;">
+      <span class="activity-tag" style="background:var(--purple);">❓ 글을 읽고 질문 주고받기</span>
+      <div class="stage-icon">❓</div>
+    </div>
+    <h1>활동 3 · 인물에게 질문</h1>
+    <p class="subtitle">「진짜 행운」 속 등장인물에게 묻고 싶은 질문을 만들어 봅시다.</p>
+
+    <div class="think-box">
+      <h3 style="color:var(--purple);">💡 이렇게 해봐요</h3>
+      <p>인물의 말과 행동에서 <strong>이해가 안 되거나 명료하게 알고 싶은 것</strong>을 중심으로 질문을 만들어요.
+      세 가지 목적에 맞게 각각 질문을 만들어보세요!</p>
+    </div>
+
+    ${QUESTION_TYPES.map((qt, i) => `
+      <div class="q-maker" style="border-color:${qt.color};">
+        <span class="purpose" style="background:${qt.color};">${qt.purpose}</span>
+        <p class="purpose-desc">${qt.desc}</p>
+
+        <div class="example">
+          <span class="example-label">예시:</span>
+          (${qt.fixedWho}에게) ${qt.fixedQuestion}
+        </div>
+
+        <label>누구에게? (인물 이름)</label>
+        <input type="text" class="who-input" id="q-who-${i}" placeholder="예) 하늘 / 마람 언니 / 엄마 / 아빠"
+               value="${escapeAttr(state.questionAnswers[i].who || '')}">
+
+        <label>궁금한 점 (질문)</label>
+        <textarea id="q-text-${i}" placeholder="${escapeAttr(qt.placeholder)}" style="font-size:16px;">${escapeHtml(state.questionAnswers[i].q || '')}</textarea>
+
+        <button class="btn sample-toggle" onclick="toggleSample('question', ${i})" style="margin-top:8px;">
+          ${state.sampleShown.question[i] ? '🔽 예시 접기' : '💡 예시 답안 보기'}
+        </button>
+        <div class="sample-box ${state.sampleShown.question[i] ? 'show' : ''}">
+          <div class="label">예시 답안 (참고용)</div>
+          <div style="white-space:pre-wrap; font-size:15px; line-height:1.7;">${qt.sample}</div>
+          <div class="note">※ 이건 그냥 예시야. 네 질문이 다르면 더 좋아!</div>
+        </div>
+      </div>
+    `).join('')}
+
+    <div class="nav">
+      <button class="btn" onclick="goToActivity(1)">← 이전</button>
+      <button class="btn primary" onclick="goToActivity(3)">다음 활동 →</button>
+    </div>
+  `;
+  container.innerHTML = html;
+
+  QUESTION_TYPES.forEach((_, i) => {
+    const who = document.getElementById(`q-who-${i}`);
+    const qt = document.getElementById(`q-text-${i}`);
+    if (who) {
+      who.addEventListener('input', (e) => {
+        state.questionAnswers[i].who = e.target.value;
+        save();
+      });
+    }
+    if (qt) {
+      qt.addEventListener('input', (e) => {
+        state.questionAnswers[i].q = e.target.value;
+        save();
+      });
+    }
+  });
+}
+
+/* ============ 활동 4: 나의 소원 ============ */
+function renderWishActivity() {
+  const container = document.getElementById('activity-content');
+  const html = `
+    <div style="text-align:center; padding:8px 0;">
+      <span class="activity-tag" style="background:#ffa000;">🌟 자신과 관련짓기</span>
+      <div class="stage-icon">🌟</div>
+    </div>
+    <h1>활동 4 · 나의 소원과 까닭</h1>
+    <p class="subtitle">자신이 이루고 싶은 소원과 그 까닭을 써봅시다.</p>
+
+    <div class="think-box">
+      <h3 style="color:#ffa000;">💡 ${MY_WISH.hint}</h3>
+      <p>${MY_WISH.prompt}</p>
+    </div>
+
+    <div class="wish-table">
+      <div class="wish-cell">
+        <div class="header">🌟 이루고 싶은 소원</div>
+        <textarea id="my-wish" class="short" placeholder="여기에 너의 소원을 써봐!">${escapeHtml(state.myWish)}</textarea>
+      </div>
+      <div class="wish-cell">
+        <div class="header" style="background:#fff3e0;">💭 그 까닭</div>
+        <textarea id="my-reason" class="short" placeholder="왜 그 소원을 빌고 싶은지 써봐!">${escapeHtml(state.myWishReason)}</textarea>
+      </div>
+    </div>
+
+    <div class="friend-quotes">
+      <div style="font-family:'Gaegu',cursive; font-weight:700; color:#666; margin-bottom:8px;">
+        💬 친구들의 소원도 들어볼까?
+      </div>
+      ${MY_WISH.friendExamples.map(f => `
+        <div class="friend-quote">
+          <div class="who">${f.who}</div>
+          ${f.text}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="write-box" style="margin-top:14px;">
+      <button class="btn sample-toggle" onclick="toggleSample('myWish')">
+        ${state.sampleShown.myWish ? '🔽 예시 답안 접기' : '💡 예시 답안 살짝 보기'}
+      </button>
+      <div class="sample-box ${state.sampleShown.myWish ? 'show' : ''}">
+        <div class="label">예시 답안 (참고용)</div>
+        <div><strong>이루고 싶은 소원:</strong> ${MY_WISH.sample.wish}</div>
+        <div style="margin-top:6px;"><strong>그 까닭:</strong> ${MY_WISH.sample.reason}</div>
+        <div class="note">※ 이건 그냥 예시야. 네 소원은 무엇이든 OK!</div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn" onclick="goToActivity(2)">← 이전</button>
+      <button class="btn primary" onclick="goToSubmit()">📝 제출하러 가기 →</button>
+    </div>
+  `;
+  container.innerHTML = html;
+
+  const w = document.getElementById('my-wish');
+  const r = document.getElementById('my-reason');
+  if (w) w.addEventListener('input', (e) => { state.myWish = e.target.value; save(); });
+  if (r) r.addEventListener('input', (e) => { state.myWishReason = e.target.value; save(); });
+}
+
+/* ============ 예시 토글 ============ */
+function toggleSample(kind, idx) {
+  if (kind === 'content') {
+    state.sampleShown.content[idx] = !state.sampleShown.content[idx];
+    renderContentActivity();
+  } else if (kind === 'timeline') {
+    state.sampleShown.timeline[idx] = !state.sampleShown.timeline[idx];
+    renderTimelineActivity();
+  } else if (kind === 'question') {
+    state.sampleShown.question[idx] = !state.sampleShown.question[idx];
+    renderQuestionActivity();
+  } else if (kind === 'myWish') {
+    state.sampleShown.myWish = !state.sampleShown.myWish;
+    renderWishActivity();
+  }
+}
+
+/* ============ 제출 ============ */
+function renderSubmit() {
+  let html = `
+    <div class="stage-icon">📝</div>
+    <h1>제출하기</h1>
+    <p class="subtitle">완성한 활동을 모두 모아서 선생님께 보내자!</p>
+
+    <div class="card tilt-left">
+      <span class="card-tag" style="background:var(--blue);">📋 내 답 정리</span>
+      <h2 style="text-align:center;">아래 답을 폼에 옮겨 적어요</h2>
+
+      <div class="answer-card" style="border-color:var(--blue);">
+        <div class="header">
+          <div class="letter-label" style="color:var(--blue);">📚 활동 1 · 내용 알기</div>
+          <button class="btn edit-btn" style="border-color:var(--blue); color:var(--blue);" onclick="goToActivity(0)">✏️ 수정</button>
+        </div>
+        ${CONTENT_QUESTIONS.map((q, i) => {
+          const ans = state.contentAnswers[i] || '';
+          return `
+            <div style="margin-bottom:8px;">
+              <div class="sub-label">(${i + 1}) ${q.q}</div>
+              <div class="content ${ans.trim() ? '' : 'empty'}">${ans.trim() ? escapeHtml(ans) : '(작성 안함)'}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="answer-card" style="border-color:var(--orange);">
+        <div class="header">
+          <div class="letter-label" style="color:var(--orange);">⏰ 활동 2 · 시간 흐름 간추리기</div>
+          <button class="btn edit-btn" style="border-color:var(--orange); color:var(--orange);" onclick="goToActivity(1)">✏️ 수정</button>
+        </div>
+        ${TIMELINE.map((t, i) => {
+          const ans = state.timelineAnswers[i] || '';
+          return `
+            <div style="margin-bottom:8px;">
+              <div class="sub-label">${i + 1}단계${t.given ? ' (예시)' : ''}:</div>
+              <div class="content ${ans.trim() ? '' : 'empty'}">${ans.trim() ? escapeHtml(ans) : '(작성 안함)'}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="answer-card" style="border-color:var(--purple);">
+        <div class="header">
+          <div class="letter-label" style="color:var(--purple);">❓ 활동 3 · 인물에게 질문</div>
+          <button class="btn edit-btn" style="border-color:var(--purple); color:var(--purple);" onclick="goToActivity(2)">✏️ 수정</button>
+        </div>
+        ${QUESTION_TYPES.map((qt, i) => {
+          const a = state.questionAnswers[i];
+          if (!a.q || !a.q.trim()) return '';
+          return `
+            <div style="margin-bottom:8px;">
+              <div class="sub-label">${qt.purpose}${a.who ? ' (' + escapeHtml(a.who) + '에게)' : ''}:</div>
+              <div class="content">${escapeHtml(a.q)}</div>
+            </div>
+          `;
+        }).filter(Boolean).join('') || '<div class="content empty">(아직 작성하지 않았어요)</div>'}
+      </div>
+
+      <div class="answer-card" style="border-color:#ffa000;">
+        <div class="header">
+          <div class="letter-label" style="color:#ffa000;">🌟 활동 4 · 나의 소원과 까닭</div>
+          <button class="btn edit-btn" style="border-color:#ffa000; color:#ffa000;" onclick="goToActivity(3)">✏️ 수정</button>
+        </div>
+        <div class="sub-label">이루고 싶은 소원:</div>
+        <div class="content ${state.myWish.trim() ? '' : 'empty'}">${state.myWish.trim() ? escapeHtml(state.myWish) : '(작성 안함)'}</div>
+        <div class="sub-label">그 까닭:</div>
+        <div class="content ${state.myWishReason.trim() ? '' : 'empty'}">${state.myWishReason.trim() ? escapeHtml(state.myWishReason) : '(작성 안함)'}</div>
+      </div>
+    </div>
+
+    <div class="write-box">
+      <button class="btn sample-toggle" id="copy-btn" onclick="copyAllAnswers()">
+        📋 모든 답 한꺼번에 복사하기
+      </button>
+      <p style="font-family:'Gaegu',cursive; font-size:14px; color:#666; text-align:center; margin:8px 0 0;">
+        복사 → 구글 폼에 붙여넣기 하면 편해!
+      </p>
+    </div>
+
+    <div class="submit-cta">
+      <h2>✨ 선생님께 제출하기</h2>
+      <p style="font-family:'Gaegu',cursive; font-size:17px; line-height:1.7;">
+        아래 버튼을 누르면 <strong>구글 폼</strong>이 새 창으로 열려.<br>
+        위에 정리된 내 답을 폼에 옮겨 적어 제출해보자!
+      </p>
+      <button class="btn big-btn" onclick="openForm()">
+        📝 구글 폼으로 제출하러 가기
+      </button>
+    </div>
+
+    <div class="nav">
+      <button class="btn" onclick="goToActivity(3)">← 이전</button>
+      <button class="btn primary" onclick="goToDone()">✅ 제출 완료 →</button>
+    </div>
+  `;
+  document.getElementById('submit-content').innerHTML = html;
+}
+
+function copyAllAnswers() {
+  const parts = [];
+  parts.push('=== 「진짜 행운」 학습지 답안 ===');
+
+  parts.push('\n[활동 1] 내용 알기');
+  CONTENT_QUESTIONS.forEach((q, i) => {
+    const ans = state.contentAnswers[i] || '(작성 안함)';
+    parts.push(`(${i + 1}) ${q.q}\n→ ${ans}`);
+  });
+
+  parts.push('\n[활동 2] 시간 흐름 간추리기');
+  TIMELINE.forEach((t, i) => {
+    const ans = state.timelineAnswers[i] || '(작성 안함)';
+    parts.push(`${i + 1}단계${t.given ? ' (예시)' : ''}: ${ans}`);
+  });
+
+  parts.push('\n[활동 3] 인물에게 질문');
+  let added = 0;
+  QUESTION_TYPES.forEach((qt, i) => {
+    const a = state.questionAnswers[i];
+    if (a.q && a.q.trim()) {
+      parts.push(`${qt.purpose}${a.who ? ' (' + a.who + '에게)' : ''}\n→ ${a.q}`);
+      added++;
+    }
+  });
+  if (added === 0) parts.push('(작성 안함)');
+
+  parts.push('\n[활동 4] 나의 소원과 까닭');
+  parts.push(`이루고 싶은 소원: ${state.myWish || '(작성 안함)'}`);
+  parts.push(`그 까닭: ${state.myWishReason || '(작성 안함)'}`);
+
+  const text = parts.join('\n\n');
+  const success = () => {
+    const btn = document.getElementById('copy-btn');
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = '✅ 복사 완료!';
+      btn.style.background = 'var(--green)';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2000);
+    }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(success).catch(() => fallbackCopy(text, success));
+  } else {
+    fallbackCopy(text, success);
+  }
+}
+
+function fallbackCopy(text, onSuccess) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); onSuccess(); }
+  catch(e) { alert('복사가 안 됐어. 직접 답을 보고 폼에 옮겨 적어줘!'); }
+  document.body.removeChild(ta);
+}
+
+function openForm() {
+  if (!GOOGLE_FORM_URL || GOOGLE_FORM_URL === '[FORM_URL_HERE]') {
+    alert('아직 선생님이 구글 폼 주소를 넣지 않으셨어. 선생님께 여쭤봐!');
+    return;
+  }
+  window.open(GOOGLE_FORM_URL, '_blank');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// 페이지 떠날 때 경고 (실수로 새로고침/창 닫기 방지)
+window.addEventListener('beforeunload', (e) => {
+  const hasContent =
+    state.contentAnswers.some(a => a && a.trim()) ||
+    state.timelineAnswers.some((a, i) => !TIMELINE[i].given && a && a.trim()) ||
+    state.questionAnswers.some(a => (a.who && a.who.trim()) || (a.q && a.q.trim())) ||
+    (state.myWish && state.myWish.trim()) ||
+    (state.myWishReason && state.myWishReason.trim());
+  if (hasContent) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+renderMenu();
+</script>
+
+</body>
+</html>
